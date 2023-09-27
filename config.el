@@ -1,12 +1,8 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-(setq doom-theme 'doom-oksolar-light
-      doom-font (font-spec :family "JetBrainsMono" :size 13)
-      doom-variable-pitch-font (font-spec :family "DejaVu Sans" :size 13))
+(setq doom-theme 'doom-one-light)
 
 (setq display-line-numbers-type 'relative)
-
-(add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
 (after! company
   (setq company-idle-delay nil))
@@ -42,7 +38,7 @@
 ;;; :ui doom-dashboard
 (setq fancy-splash-image (file-name-concat doom-user-dir "splash.png"))
 ;; Hide the menu for as minimalistic a startup screen as possible.
-(setq +doom-dashboard-functions '(doom-dashboard-widget-banner))
+;; (setq +doom-dashboard-functions '(doom-dashboard-widget-banner))
 
 ;;; :app everywhere
 (after! emacs-everywhere
