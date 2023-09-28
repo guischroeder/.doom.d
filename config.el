@@ -29,8 +29,9 @@
         org-capture-templates
         '(("n" "Notes" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
            "* %?\n %i\n %a")
-          ("b" "Bookmark" entry (file+headline "~/Dropbox/org/notes.org" "Bookmarks")
-           "** %?\n:PROPERTIES:\n:CREATED: %U\n" :empty-lines 1))))
+          ("b" "Bookmarks" entry (file+headline "~/Dropbox/org/notes.org" "Bookmarks")
+           "** %(org-cliplink-capture)%?\n" :unnarrowed t)
+          )))
 
 (require 'org-bullets)
 (add-hook 'org-mode-hook #'org-bullets-mode)

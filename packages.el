@@ -3,3 +3,4 @@
 
 (package! org-bullets)
 (package! org-pomodoro)
+(package! org-cliplink)
