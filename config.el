@@ -1,25 +1,14 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-(setq doom-theme 'doom-one-light)
+(setq doom-theme 'doom-oksolar-dark
+      doom-font (font-spec :size 18))
 
 (setq display-line-numbers-type 'relative)
-
-(after! company
-  (setq company-idle-delay nil))
 
 ;;; :editor evil
 ;; Focus new window after splitting
 (setq evil-split-window-below t
       evil-vsplit-window-right t)
-
-;;; :tools lsp
-;; Disable invasive lsp-mode features
-(after! lsp-mode
-  (setq lsp-enable-symbol-highlighting nil
-        lsp-enable-suggest-server-download nil))
-(after! lsp-ui
-  (setq lsp-ui-sideline-enable nil  ; no more useful than flycheck
-        lsp-ui-doc-enable nil))     ; redundant with K
 
 (setq org-directory "~/Dropbox/org/")
 
@@ -27,14 +16,11 @@
   (setq org-startup-folded 'show2levels
         org-ellipsis " [...] "
         org-capture-templates
-        '(("n" "Notes" entry (file+headline "~/Dropbox/org/inbox.org" "Inbox")
+        '(("n" "Notes" entry (file "~/Dropbox/org/inbox.org")
            "* %?\n %i\n %a")
-          ("b" "Bookmarks" entry (file+headline "~/Dropbox/org/notes.org" "Bookmarks")
-           "** %(org-cliplink-capture)%?\n" :unnarrowed t)
-          )))
-
-(require 'org-bullets)
-(add-hook 'org-mode-hook #'org-bullets-mode)
+          ("t" "Todo" entry (file "~/Dropbox/org/todo.org")
+           "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n"))
+        ))
 
 ;;; :ui doom-dashboard
 (setq fancy-splash-image (file-name-concat doom-user-dir "splash.png"))

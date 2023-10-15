@@ -19,7 +19,7 @@
        (evil +everywhere)
        file-templates
        fold
-       (format +onsave)
+       ;; (format +onsave)
        multiple-cursors
        snippets
 
@@ -35,7 +35,6 @@
 
        :checkers
        syntax
-       (spell +flyspell)
 
        :tools
        direnv
@@ -59,7 +58,7 @@
        ;;elm
        emacs-lisp
        ;;erlang
-       ;;(go +lsp)
+       (go +lsp)
        ;;(graphql +lsp)
        ;;(haskell +lsp)
        json
