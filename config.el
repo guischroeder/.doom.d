@@ -1,6 +1,6 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-(setq doom-theme 'doom-zenburn
+(setq doom-theme 'doom-oksolar-dark
       doom-font (font-spec :size 18))
 
 (setq display-line-numbers-type 'relative)
@@ -19,5 +19,3 @@
            "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n")))
   (setq org-todo-keywords '
         ((sequence "TODO(t)" "STRT(s)" "WAIT(w@/!)" "|" "DONE(d/!)"))))
-
-(setq fancy-splash-image (file-name-concat doom-user-dir "splash.png"))

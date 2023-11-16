@@ -19,7 +19,7 @@
        (evil +everywhere)
        file-templates
        fold
-       ;; (format +onsave)
+       (format +onsave)
        multiple-cursors
        snippets
 
@@ -51,14 +51,14 @@
        (:if IS-MAC macos)
 
        :lang
-       (cc +lsp)
-       clojure
+       ;;(cc +lsp)
+       ;;clojure
        ;;crystal
        ;;elixir
        ;;elm
        emacs-lisp
        ;;erlang
-       (go +lsp)
+       ;;(go +lsp)
        ;;(graphql +lsp)
        ;;(haskell +lsp)
        json
@@ -75,7 +75,7 @@
        (ruby +rails)
        ;;(rust +lsp)
        sh
-       web
+       (web +lsp)
        yaml
        ;;zig
 

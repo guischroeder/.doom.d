@@ -6,7 +6,8 @@
  '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'")
  '(org-agenda-files
    '("/home/gschroeder0/Dropbox/org/areas/agendas.org" "/home/gschroeder0/Dropbox/org/inbox.org" "/home/gschroeder0/Dropbox/org/todo.org"))
- '(package-selected-packages '(restclient)))
+ '(package-selected-packages '(ef-themes restclient)))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
