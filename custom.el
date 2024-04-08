@@ -4,9 +4,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'")
- '(org-agenda-files
-   '("/home/gschroeder0/Dropbox/org/areas/agendas.org" "/home/gschroeder0/Dropbox/org/inbox.org" "/home/gschroeder0/Dropbox/org/todo.org"))
- '(package-selected-packages '(ef-themes restclient)))
+ '(package-selected-packages
+   '(ac-inf-ruby xclip tide robe restclient org-superstar org-bullets ewal-spacemacs-themes ef-themes)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -14,3 +13,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(put 'set-goal-column 'disabled nil)

@@ -19,7 +19,7 @@
        (evil +everywhere)
        file-templates
        fold
-       (format +onsave)
+       ;;(format +onsave)
        multiple-cursors
        snippets
 
@@ -63,13 +63,13 @@
        ;;(haskell +lsp)
        json
        ;;(java +lsp)
-       (javascript +lsp)
+       (javascript)
        ;;kotlin
        ;;lean
        ;;lua
        markdown
        ;;ocaml
-       (org +journal)
+       (org +pretty +journal)
        ;;(python +lsp)
        ;;rest
        (ruby +rails)
