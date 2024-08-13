@@ -1,7 +1,8 @@
 ;;; init.el -*- lexical-binding: t; -*-
+;;;
 
 (doom! :completion
-       company
+       corfu
        (vertico +icons)
 
        :ui
@@ -19,7 +20,7 @@
        (evil +everywhere)
        file-templates
        fold
-       ;;(format +onsave)
+       format
        multiple-cursors
        snippets
 
@@ -40,11 +41,9 @@
        direnv
        editorconfig
        (eval +overlay)
-       gist
        (lookup +docsets +dictionary)
        lsp
        magit
-       pdf
        tree-sitter
 
        :os
@@ -59,35 +58,26 @@
        emacs-lisp
        ;;erlang
        ;;(go +lsp)
-       ;;(graphql +lsp)
+       (graphql +lsp)
        ;;(haskell +lsp)
        json
        ;;(java +lsp)
        (javascript)
-       ;;kotlin
-       ;;lean
-       ;;lua
        markdown
        ;;ocaml
        (org +pretty +journal)
+       org
        ;;(python +lsp)
-       ;;rest
+       rest
        (ruby +rails)
        ;;(rust +lsp)
        sh
-       (web +lsp)
+       (web +lsp +tree-sitter)
        yaml
-       ;;zig
-
-       :email
-       ;;(mu4e +org +gmail)
-       ;;notmuch
-       ;;(wanderlust +gmail)
+       ;;zi
 
        :app
-       ;;calendar
        everywhere
 
        :config
-       ;;literate
        (default +bindings +smartparens))
