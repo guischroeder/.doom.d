@@ -7,7 +7,7 @@
    '("ffafb0e9f63935183713b204c11d22225008559fa62133a69848835f4f4a758c" default))
  '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'")
  '(package-selected-packages
-   '(xclip tide restclient org-superstar org-bullets ewal-spacemacs-themes ef-themes)))
+   '(zenburn-theme anti-zenburn-theme hc-zenburn-theme slime xclip tide restclient org-superstar org-bullets ewal-spacemacs-themes ef-themes)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

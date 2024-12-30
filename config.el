@@ -3,7 +3,7 @@
 ;;
 ;;; UI
 
-(setq doom-theme 'doom-solarized-dark
+(setq doom-theme 'doom-one
       doom-font (font-spec :family "JetBrainsMono" :size 16))
 (setq display-line-numbers-type 'relative)
 ;; hide the menu in the startup
@@ -57,3 +57,116 @@
 
 (setq org-directory "~/Dropbox/org")
 (setq org-img-directory "~/Dropbox/org/img")
+
+
+;;
+;;; RoR stuff
+
+;; only check syntax on save and disable ruby-reek
+(setq-default flycheck-disabled-checkers '(ruby-reek))
+(setq flycheck-disabled-checkers '(ruby-reek))
+
+;; solargraph
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :commands (lsp lsp-deferred)
+;;   :hook ((ruby-mode . lsp)
+;;          (enh-ruby-mode . lsp))
+;;   :init
+;;   (setq lsp-solargraph-use-bundler t)
+;;   (setq lsp-solargraph-diagnostics t)
+;;   (setq lsp-solargraph-formatting t))
+
+;; Disable RuboCop in Flycheck for Ruby/Rails projects
+(after! flycheck
+  (setq-default flycheck-disabled-checkers '(ruby-rubocop)))
+;; Disable RuboCop in lsp-mode for Ruby/Rails
+;; (after! lsp-ruby
+;;   (setq lsp-solargraph-diagnostics nil))
+
+
+(setq projectile-rails-expand-snippet-with-magic-comment t)
+
+(defun my/snake-to-camel (string)
+  "Convert STRING from snake case to camel case."
+  (let ((case-fold-search nil))
+    (mapconcat 'upcase-initials (split-string string "_") "")))
+
+(defun my/projectile-rails-classify (name)
+  "Split NAME by '/' character and classify each of the element."
+  (--map (my/snake-to-camel it) (split-string name "/")))
+
+(advice-add 'projectile-rails-classify :override #'my/projectile-rails-classify)
+
+(defun my/projectile-rails-corresponding-snippet ()
+  "Expand snippet appropriate for the current Rails file.
+Call `projectile-rails--expand-snippet' with a snippet
+corresponding to the current file."
+  (let* ((name (buffer-file-name))
+         (snippet
+          (cond ((string-match "app/[^/]+/concerns/\\(.+\\)\\.rb$" name)
+                 (format
+                  "module %s\n  extend ActiveSupport::Concern\n  $0\nend"
+                  (s-join "::" (projectile-rails-classify (match-string 1 name)))))
+                ((string-match "app/controllers/\\(.+\\)\\.rb$" name)
+                 (format
+                  "class %s < ${1:ApplicationController}\n$2\nend"
+                  (s-join "::" (projectile-rails-classify (match-string 1 name)))))
+                ((string-match "app/jobs/\\(.+\\)\\.rb$" name)
+                 (format
+                  "class %s < ${1:ApplicationJob}\n$2\nend"
+                  (s-join "::" (projectile-rails-classify (match-string 1 name)))))
+                ((string-match "spec/[^/]+/\\(.+\\)_spec\\.rb$" name)
+                 (format
+                  "describe %s do\n  $0\nend"
+                  (s-join "::" (projectile-rails-classify (match-string 1 name)))))
+                ((string-match "app/models/\\(.+\\)\\.rb$" name)
+                 (projectile-rails--snippet-for-model (match-string 1 name)))
+                ((string-match "app/helpers/\\(.+\\)_helper\\.rb$" name)
+                 (format
+                  "module %sHelper\n$1\nend"
+                  (s-join "::" (projectile-rails-classify (match-string 1 name)))))
+                ((string-match "lib/\\(.+\\)\\.rb$" name)
+                 (projectile-rails--snippet-for-module "${1:module} %s\n" (match-string 1 name)))
+                ((string-match "app/\\(?:[^/]+\\)/\\(.+\\)\\.rb$" name)
+                 (projectile-rails--snippet-for-module "${1:class} %s\n" (match-string 1 name))))))
+    (if (and snippet projectile-rails-expand-snippet-with-magic-comment)
+        (format "# frozen_string_literal: true\n\n%s" snippet)
+      snippet)))
+
+(advice-add 'projectile-rails-corresponding-snippet :override #'my/projectile-rails-corresponding-snippet)
+
+;;
+
+;; slime
+(setq inferior-lisp-program "sbcl")
+
+(defun my-slime-repl-bindings ()
+  "Custom key bindings for SLIME REPL."
+  (define-key slime-repl-mode-map (kbd "<up>") 'slime-repl-previous-input)
+  (define-key slime-repl-mode-map (kbd "<down>") 'slime-repl-next-input))
+
+(add-hook 'slime-repl-mode-hook 'my-slime-repl-bindings)
+;;
+
+;; copilot
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
+  :bind (:map copilot-completion-map
+              ("<tab>" . 'copilot-accept-completion)
+              ("TAB" . 'copilot-accept-completion)
+              ("C-TAB" . 'copilot-accept-completion-by-word)
+              ("C-<tab>" . 'copilot-accept-completion-by-word)))
+
+(after! (evil copilot)
+  ;; Define the custom function that either accepts the completion or does the default behavior
+  (defun my/copilot-tab-or-default ()
+    (interactive)
+    (if (and (bound-and-true-p copilot-mode)
+             ;; Add any other conditions to check for active copilot suggestions if necessary
+             )
+        (copilot-accept-completion)
+      (evil-insert 1))) ; Default action to insert a tab. Adjust as needed.
+
+  ;; Bind the custom function to <tab> in Evil's insert state
+  (evil-define-key 'insert 'global (kbd "<tab>") 'my/copilot-tab-or-default))

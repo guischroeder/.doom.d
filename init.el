@@ -56,13 +56,14 @@
        ;;elixir
        ;;elm
        emacs-lisp
+       (lisp +sly)
        ;;erlang
        ;;(go +lsp)
        (graphql +lsp)
        ;;(haskell +lsp)
        json
        ;;(java +lsp)
-       (javascript)
+       (javascript +lsp)
        markdown
        ;;ocaml
        (org +pretty +journal)
